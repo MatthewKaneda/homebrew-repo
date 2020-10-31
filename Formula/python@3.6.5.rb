@@ -12,6 +12,17 @@ class Python < Formula
     sha256 "bccf50de973644608af29652f2660124d033f3213d422fe44a7f012a47643a95" => :el_capitan
   end
 
+  # setuptools remembers the build flags python is built with and uses them to
+  # build packages later. Xcode-only systems need different flags.
+  pour_bottle? do
+    reason <<~EOS
+      The bottle needs the Apple Command Line Tools to be installed.
+        You can install them, if desired, with:
+          xcode-select --install
+    EOS
+    satisfy { MacOS::CLT.installed? }
+  end
+
   option "with-tcl-tk", "Use Homebrew's Tk instead of macOS Tk (has optional Cocoa and threads support)"
   deprecated_option "with-brewed-tk" => "with-tcl-tk"
 
@@ -51,17 +62,6 @@ class Python < Formula
   # so we have to stop python from searching for frameworks and linking against
   # X11.
   patch :DATA if build.with? "tcl-tk"
-
-  # setuptools remembers the build flags python is built with and uses them to
-  # build packages later. Xcode-only systems need different flags.
-  pour_bottle? do
-    reason <<~EOS
-      The bottle needs the Apple Command Line Tools to be installed.
-        You can install them, if desired, with:
-          xcode-select --install
-    EOS
-    satisfy { MacOS::CLT.installed? }
-  end
 
   def install
     # Unset these so that installing pip and setuptools puts them where we want
