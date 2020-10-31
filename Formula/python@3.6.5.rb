@@ -184,6 +184,7 @@ class PythonAT365 < Formula
     end
 
     # Install unversioned symlinks in libexec/bin.
+    # rubocop:disable AlignHash
     {
       "idle" => "idle3",
       "pydoc" => "pydoc3",
@@ -192,6 +193,7 @@ class PythonAT365 < Formula
     }.each do |unversioned_name, versioned_name|
       (libexec/"bin").install_symlink (bin/versioned_name).realpath => unversioned_name
     end
+    # rubocop:enable AlignHash
   end
 
   def post_install
