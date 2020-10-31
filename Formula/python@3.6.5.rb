@@ -53,11 +53,6 @@ class Python < Formula
     sha256 "1ae8153bed701cb062913b72429bcf854ba824f973735427681882a688cb55ce"
   end
 
-  fails_with :clang do
-    build 425
-    cause "https://bugs.python.org/issue24844"
-  end
-
   # Homebrew's tcl-tk is built in a standard unix fashion (due to link errors)
   # so we have to stop python from searching for frameworks and linking against
   # X11.
