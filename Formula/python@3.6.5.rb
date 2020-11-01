@@ -307,4 +307,3 @@ class PythonAT365 < Formula
     system bin/"pip3.6", "list", "--format=columns"
   end
 end
-
